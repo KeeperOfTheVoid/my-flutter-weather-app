@@ -136,6 +136,9 @@ class WhiteCircleCutoutPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (var i = 1; i < circles.length; ++i) {
+
+      _maskCircle(canvas, size, circles[i-1].radius);
+
       whitePaint.color = overlayColor.withAlpha(circles[i - 1].alpha);
 
       // Fill circle
@@ -145,6 +148,33 @@ class WhiteCircleCutoutPainter extends CustomPainter {
           whitePaint,
       );
     }
+
+    // Mask area of final circle
+    _maskCircle(canvas, size, circles.last.radius);
+
+    // Draw an overlay that fills the rest of the screen
+    whitePaint.color = overlayColor.withAlpha(circles.last.alpha);
+    canvas.drawRect(
+        new Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+        whitePaint
+    );
+  }
+
+  _maskCircle(Canvas canvas, Size size, double radius) {
+    Path clippedCircle = new Path();
+
+    // If you want to clip a path, you need to start with a larger space.
+    // Start with the entire screen, then cut out a circle we want to mask.
+    clippedCircle.fillType = PathFillType.evenOdd;
+    clippedCircle.addRect(new Rect.fromLTWH(0.0, 0.0, size.width, size.height));
+    clippedCircle.addOval(
+      new Rect.fromCircle(
+        center: new Offset(0.0, size.height / 2) + centerOffset,
+        radius: radius,
+      ),
+    );
+    
+    canvas.clipPath(clippedCircle);
   }
 
   @override
