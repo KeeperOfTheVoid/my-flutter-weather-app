@@ -74,7 +74,21 @@ class _MyHomePageState extends State<MyHomePage> {
               'assets/weather-bk.png',
               fit: BoxFit.cover,
             ),
-          )
+          ),
+
+          new CustomPaint(
+            painter: new WhiteCircleCutoutPainter(
+              centerOffset: const Offset(40.0, 0.0),
+              circles: [
+                new Circle(radius: 140.0, alpha: 0x10),
+                new Circle(radius: 140.0 + 15.0, alpha: 0x28),
+                new Circle(radius: 140.0 + 30.0, alpha: 0x38),
+                new Circle(radius: 140.0 + 75.0, alpha: 0x50),
+              ]
+            ),
+
+            child: new Container(),
+          ),
         ],
       ),
     );
@@ -103,5 +117,53 @@ class CircleClipper extends CustomClipper<Rect> {
   bool shouldReclip(CustomClipper<Rect> oldClipper) {
     return true;
   }
+
+}
+
+class WhiteCircleCutoutPainter extends CustomPainter {
+
+  final Color overlayColor = const Color(0xFFAA88AA);
+
+  final List<Circle> circles;
+  final Offset centerOffset;
+  final Paint whitePaint;
+
+  WhiteCircleCutoutPainter({
+    this.circles = const[],
+    this.centerOffset = const Offset(0.0, 0.0),
+  }) : whitePaint = new Paint();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    for (var i = 1; i < circles.length; ++i) {
+      whitePaint.color = overlayColor.withAlpha(circles[i - 1].alpha);
+
+      // Fill circle
+      canvas.drawCircle(
+          new Offset(0.0, size.height / 2) + centerOffset,
+          circles[i].radius,
+          whitePaint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+
+class Circle {
+
+  final double radius;
+  final int alpha;
+
+  Circle({
+    this.radius,
+    this.alpha = 0xFF,
+  });
+
+
 
 }
