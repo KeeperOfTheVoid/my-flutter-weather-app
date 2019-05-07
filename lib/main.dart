@@ -65,12 +65,43 @@ class _MyHomePageState extends State<MyHomePage> {
             fit: BoxFit.cover,
           ),
 
-          new Image.asset(
-            'assets/weather-bk.png',
-            fit: BoxFit.cover,
+          new ClipOval(
+            clipper: new CircleClipper(
+              radius: 140.0,
+              offset: const Offset(40.0, 0.0),
+            ),
+            child: new Image.asset(
+              'assets/weather-bk.png',
+              fit: BoxFit.cover,
+            ),
           )
         ],
       ),
     );
   }
+}
+
+class CircleClipper extends CustomClipper<Rect> {
+
+  final double radius;
+  final Offset offset;
+
+  CircleClipper({
+    this.radius,
+    this.offset = const Offset(0.0, 0.0),
+  });
+
+  @override
+  Rect getClip(Size size) {
+    return new Rect.fromCircle(
+      center: new Offset(0.0, size.height / 2) + offset,
+      radius: radius,
+    );
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Rect> oldClipper) {
+    return true;
+  }
+
 }
