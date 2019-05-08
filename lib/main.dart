@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_weather_app/forecast/app_bar.dart';
 import 'package:my_weather_app/forecast/background/background_with_rings.dart';
 
 void main() => runApp(new MyApp());
@@ -60,41 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
             top: 0.0,
             left: 0.0,
             right:0.0,
-            child: new AppBar(
-              centerTitle: false,
-              title: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Text(
-                    'Thursday, August 29',
-                    style: new TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  new Text(
-                    'San Antonio',
-                    style: new TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0,
-                    ),
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-                new IconButton(
-                    icon: new Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.white,
-                      size: 35.0,
-                    ),
-                    onPressed: () {
-                      // TODO Fill in later
-                    }
-                ),
-              ],
-            )
-          )
+            child: new ForecastAppBar(),
+          ),
         ],
       ),
     );
