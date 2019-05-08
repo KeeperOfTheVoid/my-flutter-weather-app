@@ -12,19 +12,16 @@ class SlidingDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return           new Stack(
+    return new Stack(
       children: <Widget>[
         new GestureDetector(
             onTap: openableController.isOpen()
                 ? openableController.close
                 : null
         ),
-        new Transform(
-          transform: new Matrix4.translationValues(
-            125.0 * (1.0 - openableController.percentOpen), // To the right
-            0.0,
-            0.0,
-          ),
+        // FractionalTranslation - Allows you to transform based on screen width
+        new FractionalTranslation(
+          translation: new Offset(1.0 - openableController.percentOpen, 0.0),
           child: new Align(
             alignment: Alignment.centerRight,
             child: drawer,
