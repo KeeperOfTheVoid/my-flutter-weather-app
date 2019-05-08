@@ -46,6 +46,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final week = [
+    'Tuesday\nAugust 27',
+    'Wednesday\nAugust 28',
+    'Thursday\nAugust 29',
+    'Friday\nAugust 30',
+    'Saturday\nAugust 31',
+    'Sunday\nAugust 1',
+    'Monday\nAugust 2',
+  ];
+
+  List<Widget> _buildDayButtons() {
+    return week.map((String title) {
+      return new Expanded(
+        child: new GestureDetector(
+          onTap: () {
+            // TODO: Finish later
+          },
+          child: new Text(
+            title,
+            textAlign: TextAlign.center,
+            style: new TextStyle(
+              color: Colors.white,
+              fontSize: 14.0,
+            ),
+          ),
+        ),
+      );
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -78,22 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 40.0,
                     ),
                 ),
-                new Expanded(
-                  child: new GestureDetector(
-                    onTap: () {
-                      // TODO: Finish later
-                    },
-                    child: new Text(
-                      'Wednesday\nAugust 28',
-                      textAlign: TextAlign.center,
-                      style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ]
+              ..addAll(_buildDayButtons()),
             ),
           ),
         ],
