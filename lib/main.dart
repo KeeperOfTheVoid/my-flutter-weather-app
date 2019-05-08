@@ -70,7 +70,29 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Color(0xAA234060),
             child: new Column(
               children: <Widget>[
-
+                // Take all vertical space
+                new Expanded(
+                    child: new Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                      size: 40.0,
+                    ),
+                ),
+                new Expanded(
+                  child: new GestureDetector(
+                    onTap: () {
+                      // TODO: Finish later
+                    },
+                    child: new Text(
+                      'Wednesday\nAugust 28',
+                      textAlign: TextAlign.center,
+                      style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
