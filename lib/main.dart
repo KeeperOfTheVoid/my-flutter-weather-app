@@ -46,7 +46,23 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
+
+  OpenableController openableController;
+
+
+  @override
+  void initState() {
+
+    super.initState();
+    
+    openableController = new OpenableController(
+      vsync: this,
+      openDuration: const Duration(milliseconds: 250),
+    )
+    ..addListener(() => setState(() {}))
+    ..open();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +82,95 @@ class _MyHomePageState extends State<MyHomePage> {
             right:0.0,
             child: new ForecastAppBar(),
           ),
-          new Align(
-            alignment: Alignment.centerRight,
-            child: new WeekDrawer(),
+          new Transform(
+            transform: new Matrix4.translationValues(
+              125.0 * (1.0 - openableController.percentOpen), // To the right
+              0.0,
+              0.0,
+            ),
+            child: new Align(
+              alignment: Alignment.centerRight,
+              child: new WeekDrawer(),
+            ),
           ),
         ],
       ),
     );
   }
+}
+
+class OpenableController extends ChangeNotifier {
+
+  OpenableState _state = OpenableState.closed;
+  AnimationController _opening;
+
+  OpenableController({
+    @required TickerProvider vsync,
+    @required Duration openDuration,
+  }) : _opening = new AnimationController(duration: openDuration, vsync: vsync) {
+    _opening
+      ..addListener(() => notifyListeners) // Gets called everytime frame changes
+      ..addStatusListener((AnimationStatus status) {
+        // Gets called only when animation starts/stops
+        switch(status) {
+          case AnimationStatus.forward:
+            _state = OpenableState.opening;
+            break;
+          case AnimationStatus.completed:
+            _state = OpenableState.open;
+            break;
+          case AnimationStatus.reverse:
+            _state = OpenableState.closing;
+            break;
+          case AnimationStatus.dismissed:
+            _state = OpenableState.closed;
+            break;
+        }
+        notifyListeners();
+      });
+  }
+
+  get state => _state;
+
+  get percentOpen => _opening.value;
+
+  bool isOpen() {
+    return _state == OpenableState.open;
+  }
+
+  bool isOpening() {
+    return _state == OpenableState.opening;
+  }
+
+  bool isClosed() {
+    return _state == OpenableState.closed;
+  }
+
+  bool isClosing() {
+    return _state == OpenableState.closing;
+  }
+
+  void open() {
+    _opening.forward();
+  }
+
+  void close() {
+    _opening.reverse();
+  }
+
+  void toggle() {
+    if(isClosed()) {
+      open();
+    } else if(isOpen()) {
+      close();
+    }
+  }
+
+}
+
+enum OpenableState {
+  closed,
+  opening,
+  open,
+  closing,
 }
