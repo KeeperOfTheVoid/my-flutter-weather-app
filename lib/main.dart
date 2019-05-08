@@ -66,7 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
             right:0.0,
             child: new ForecastAppBar(),
           ),
-          new WeekDrawer(),
+          new Align(
+            alignment: Alignment.centerRight,
+            child: new WeekDrawer(),
+          ),
         ],
       ),
     );
