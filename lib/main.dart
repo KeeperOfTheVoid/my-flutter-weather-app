@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_weather_app/forecast/app_bar.dart';
 import 'package:my_weather_app/forecast/background/background_with_rings.dart';
+import 'package:my_weather_app/forecast/week_drawer.dart';
 
 void main() => runApp(new MyApp());
 
@@ -47,36 +48,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  final week = [
-    'Tuesday\nAugust 27',
-    'Wednesday\nAugust 28',
-    'Thursday\nAugust 29',
-    'Friday\nAugust 30',
-    'Saturday\nAugust 31',
-    'Sunday\nAugust 1',
-    'Monday\nAugust 2',
-  ];
-
-  List<Widget> _buildDayButtons() {
-    return week.map((String title) {
-      return new Expanded(
-        child: new GestureDetector(
-          onTap: () {
-            // TODO: Finish later
-          },
-          child: new Text(
-            title,
-            textAlign: TextAlign.center,
-            style: new TextStyle(
-              color: Colors.white,
-              fontSize: 14.0,
-            ),
-          ),
-        ),
-      );
-    }).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -95,24 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             right:0.0,
             child: new ForecastAppBar(),
           ),
-          new Container(
-            width: 125.0,
-            height: double.infinity,  // As large as container
-            color: Color(0xAA234060),
-            child: new Column(
-              children: <Widget>[
-                // Take all vertical space
-                new Expanded(
-                    child: new Icon(
-                      Icons.refresh,
-                      color: Colors.white,
-                      size: 40.0,
-                    ),
-                ),
-              ]
-              ..addAll(_buildDayButtons()),
-            ),
-          ),
+          new WeekDrawer(),
         ],
       ),
     );
