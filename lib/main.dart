@@ -60,8 +60,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       vsync: this,
       openDuration: const Duration(milliseconds: 250),
     )
-    ..addListener(() => setState(() {}))
-    ..open();
+    ..addListener(() => setState(() {}));
   }
 
   @override
@@ -80,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             top: 0.0,
             left: 0.0,
             right:0.0,
-            child: new ForecastAppBar(),
+            child: new ForecastAppBar(
+              onDrawerArrowTap: openableController.open,
+            ),
           ),
           new Stack(
             children: <Widget>[
