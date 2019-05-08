@@ -82,16 +82,29 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             right:0.0,
             child: new ForecastAppBar(),
           ),
-          new Transform(
-            transform: new Matrix4.translationValues(
-              125.0 * (1.0 - openableController.percentOpen), // To the right
-              0.0,
-              0.0,
-            ),
-            child: new Align(
-              alignment: Alignment.centerRight,
-              child: new WeekDrawer(),
-            ),
+          new Stack(
+            children: <Widget>[
+              new GestureDetector(
+                onTap: openableController.isOpen()
+                    ? openableController.close
+                    : null
+              ),
+              new Transform(
+                transform: new Matrix4.translationValues(
+                  125.0 * (1.0 - openableController.percentOpen), // To the right
+                  0.0,
+                  0.0,
+                ),
+                child: new Align(
+                  alignment: Alignment.centerRight,
+                  child: new WeekDrawer(
+                    onDaySelected: (String title) {
+                      openableController.close();
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -109,7 +122,7 @@ class OpenableController extends ChangeNotifier {
     @required Duration openDuration,
   }) : _opening = new AnimationController(duration: openDuration, vsync: vsync) {
     _opening
-      ..addListener(() => notifyListeners) // Gets called everytime frame changes
+      ..addListener(notifyListeners) // Gets called everytime frame changes
       ..addStatusListener((AnimationStatus status) {
         // Gets called only when animation starts/stops
         switch(status) {
