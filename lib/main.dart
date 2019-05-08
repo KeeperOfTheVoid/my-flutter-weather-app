@@ -64,6 +64,16 @@ class _MyHomePageState extends State<MyHomePage> {
             right:0.0,
             child: new ForecastAppBar(),
           ),
+          new Container(
+            width: 125.0,
+            height: double.infinity,  // As large as container
+            color: Color(0xAA234060),
+            child: new Column(
+              children: <Widget>[
+
+              ],
+            ),
+          ),
         ],
       ),
     );
