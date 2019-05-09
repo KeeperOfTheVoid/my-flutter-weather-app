@@ -63,39 +63,56 @@ class _SpinnerTextState extends State<SpinnerText> with SingleTickerProviderStat
       // Need to spin new value down
       topText = widget.text;
 
-      // TODO Run animation
+      // Run Animation
+      _spinTextAnimationController.forward();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Stack(
-      children: <Widget>[
-        new FractionalTranslation(
-          translation: new Offset(0.0, _spinAnimation.value - 1.0),
-          child: new Text(
-            topText,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: new TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
+    return new ClipRect(
+      clipper: new RectClipper(),
+      child: new Stack(
+        children: <Widget>[
+          new FractionalTranslation(
+            translation: new Offset(0.0, _spinAnimation.value - 1.0),
+            child: new Text(
+              topText,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: new TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
           ),
-        ),
-        new FractionalTranslation(
-          translation: new Offset(0.0, _spinAnimation.value),
-          child: new Text(
-            bottomText,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: new TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
+          new FractionalTranslation(
+            translation: new Offset(0.0, _spinAnimation.value),
+            child: new Text(
+              bottomText,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: new TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
+}
+
+class RectClipper extends CustomClipper<Rect> {
+  @override
+  Rect getClip(Size size) {
+    return new Rect.fromLTWH(0.0, 0.0, size.width, size.height);
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Rect> oldClipper) {
+    return true;
+  }
+
 }

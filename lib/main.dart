@@ -90,6 +90,10 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             openableController: openableController,
             drawer: new WeekDrawer(
               onDaySelected: (String title) {
+                setState(() {
+                  selectedDay = title.replaceAll('\n', ', ');
+                });
+
                 openableController.close();
               },
             ),
