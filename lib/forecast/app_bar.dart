@@ -4,9 +4,11 @@ import 'package:my_weather_app/generic_widgets/spinner_text.dart';
 class ForecastAppBar extends StatelessWidget {
 
   final Function onDrawerArrowTap;
+  final String selectedDay;
 
   ForecastAppBar({
     this.onDrawerArrowTap,
+    this.selectedDay,
   });
 
   @override
@@ -19,7 +21,7 @@ class ForecastAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           new SpinnerText(
-            //
+            text: selectedDay,
           ),
           new Text(
             'San Antonio',

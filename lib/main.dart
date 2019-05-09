@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
   OpenableController openableController;
 
+  String selectedDay = 'Monday, August 26';
 
   @override
   void initState() {
@@ -82,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             right:0.0,
             child: new ForecastAppBar(
               onDrawerArrowTap: openableController.open,
+              selectedDay: selectedDay,
             ),
           ),
           new SlidingDrawer(
