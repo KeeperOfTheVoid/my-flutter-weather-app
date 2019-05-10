@@ -1,4 +1,37 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+
+class RadialList extends StatelessWidget {
+
+  RadialListViewModel radialList;
+
+  RadialList({
+    this.radialList,
+  });
+
+  List<Widget> _radialListItems() {
+    final double firstItemAngle = -pi / 3;
+    final double lastItemAngle = pi / 3;
+    final double angleDiffPerItem = (lastItemAngle - firstItemAngle) /
+        (radialList.items.length - 1);
+
+    double currAngle = firstItemAngle;
+
+    return radialList.items.map((RadialListItemViewModel viewModel) {
+      final listItem = _radialListItem(viewModel, currAngle);
+      currAngle += angleDiffPerItem;
+      return listItem;
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Stack(
+      children: _radialListItems(),
+    );
+  }
+}
 
 
 class RadialListItem extends StatelessWidget {
