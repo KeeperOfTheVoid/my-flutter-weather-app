@@ -66,6 +66,10 @@ class SlidingRadialListController extends ChangeNotifier {
 
   RadialListState _state;
 
+  // Used to create Futures for open & close methods
+  Completer onOpenedCompleter;
+  Completer onClosedCompleter;
+
   SlidingRadialListController({
     this.itemCount,
     vsync,
@@ -77,7 +81,8 @@ class SlidingRadialListController extends ChangeNotifier {
       _fadeController = new AnimationController(
         duration: const Duration(milliseconds: 150),
         vsync: vsync,
-      ) {
+      ),
+      _slidePositions = [] {
     _slideController
       ..addListener(() => notifyListeners())
       ..addStatusListener((AnimationStatus status) {
@@ -89,6 +94,7 @@ class SlidingRadialListController extends ChangeNotifier {
           case AnimationStatus.completed:
             _state = RadialListState.open;
             notifyListeners();
+            onOpenedCompleter.complete(); // Triggers Open Future
             break;
           case AnimationStatus.reverse:
           case AnimationStatus.dismissed:
@@ -111,6 +117,7 @@ class SlidingRadialListController extends ChangeNotifier {
             _slideController.value = 0.0;
             _fadeController.value = 0.0;
             notifyListeners();
+            onClosedCompleter.complete(); // Triggers Close Future
             break;
           case AnimationStatus.reverse:
           case AnimationStatus.dismissed:
@@ -181,7 +188,8 @@ class SlidingRadialListController extends ChangeNotifier {
   Future<Null> open() {
     if(_state == RadialListState.closed) {
       _slideController.forward();
-      // TODO Return a future
+      onOpenedCompleter = new Completer();
+      return onOpenedCompleter.future;
     }
     return null;
   }
@@ -189,7 +197,8 @@ class SlidingRadialListController extends ChangeNotifier {
   Future<Null> close() {
     if(_state == RadialListState.open) {
       _slideController.forward();
-      // TODO Return a future
+      onClosedCompleter = new Completer();
+      return onClosedCompleter.future;
     }
     return null;
   }
