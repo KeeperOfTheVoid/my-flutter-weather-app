@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -63,11 +64,11 @@ class SlidingRadialListController extends ChangeNotifier {
     // TODO
   }
 
-  open() {
+  Future<Null> open() {
     // TODO
   }
 
-  close() {
+  Future<Null> close() {
     // TODO
   }
 

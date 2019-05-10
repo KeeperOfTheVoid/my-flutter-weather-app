@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       vsync: this,
       openDuration: const Duration(milliseconds: 250),
     )
-    ..addListener(() => setState(() {}));*/
+    ..open();*/
   }
 
   @override
@@ -105,6 +105,12 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 setState(() {
                   selectedDay = title.replaceAll('\n', ', ');
                 });
+
+                // Want to close list and fade out, so we can
+                // reopen the list (slide in)
+                slidingListController
+                    .close()
+                    .then((_) => slidingListController.open());
 
                 openableController.close();
               },
