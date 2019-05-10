@@ -119,15 +119,33 @@ class SlidingRadialListController extends ChangeNotifier {
   }
 
   double getItemOpacity(int index) {
-    // TODO
+    switch(_state) {
+      case RadialListState.closed:
+        return 0.0;
+      case RadialListState.slidingOpen:
+      case RadialListState.open:
+        return 1.0;
+      case RadialListState.fadingOut:
+        return (1.0 - _fadeController.value);
+      default:
+        return 1.0;
+    }
   }
 
   Future<Null> open() {
-    // TODO
+    if(_state == RadialListState.closed) {
+      _slideController.forward();
+      // TODO Return a future
+    }
+    return null;
   }
 
   Future<Null> close() {
-    // TODO
+    if(_state == RadialListState.open) {
+      _slideController.forward();
+      // TODO Return a future
+    }
+    return null;
   }
 
 }
