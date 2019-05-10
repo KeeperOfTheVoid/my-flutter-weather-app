@@ -76,13 +76,41 @@ class SlidingRadialListController extends ChangeNotifier {
     _slideController
       ..addListener(() => notifyListeners())
       ..addStatusListener((AnimationStatus status) {
-        // TODO
+        switch(status) {
+          case AnimationStatus.forward:
+            _state = RadialListState.slidingOpen;
+            notifyListeners();
+            break;
+          case AnimationStatus.completed:
+            _state = RadialListState.open;
+            notifyListeners();
+            break;
+          case AnimationStatus.reverse:
+          case AnimationStatus.dismissed:
+            break;
+        }
       });
 
     _fadeController
       ..addListener(() => notifyListeners())
       ..addStatusListener((AnimationStatus status) {
-        // TODO
+        switch(status) {
+          case AnimationStatus.forward:
+            _state = RadialListState.fadingOut;
+            notifyListeners();
+            break;
+          case AnimationStatus.completed:
+            _state = RadialListState.closed;
+
+            // Reset Animation Controllers
+            _slideController.value = 0.0;
+            _fadeController.value = 0.0;
+            notifyListeners();
+            break;
+          case AnimationStatus.reverse:
+          case AnimationStatus.dismissed:
+            break;
+        }
       });
   }
 
