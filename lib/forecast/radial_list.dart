@@ -3,12 +3,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:my_weather_app/generic_widgets/radial_position.dart';
 
-class RadialList extends StatelessWidget {
+class SlidingRadialList extends StatelessWidget {
 
   RadialListViewModel radialList;
+  SlidingRadialListController controller;
 
-  RadialList({
+  SlidingRadialList({
     this.radialList,
+    this.controller,
   });
 
   List<Widget> _radialListItems() {
