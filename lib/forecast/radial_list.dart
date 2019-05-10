@@ -26,8 +26,11 @@ class RadialList extends StatelessWidget {
   }
 
   Widget _radialListItem(RadialListItemViewModel viewModel, double angle) {
-    return new RadialListItem(
-      listItem: viewModel,
+    return new Transform(
+      transform: new Matrix4.translationValues(40.0, 334.0, 0.0),
+      child: new RadialListItem(
+        listItem: viewModel,
+      ),
     );
   }
 
