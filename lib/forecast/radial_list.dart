@@ -49,6 +49,35 @@ class RadialList extends StatelessWidget {
 }
 
 
+class SlidingRadialListController extends ChangeNotifier {
+
+  RadialListState _state;
+
+  double getItemAngle(int index) {
+    // TODO
+  }
+
+  double getItemOpacity(int index) {
+    // TODO
+  }
+
+  open() {
+    // TODO
+  }
+
+  close() {
+    // TODO
+  }
+
+}
+
+enum RadialListState {
+  closed,
+  slidingOpen,
+  open,
+  fadingOut,
+}
+
 class RadialListItem extends StatelessWidget {
   final RadialListItemViewModel listItem;
 
