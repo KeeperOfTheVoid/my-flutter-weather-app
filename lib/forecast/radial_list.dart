@@ -54,7 +54,37 @@ class SlidingRadialList extends StatelessWidget {
 
 class SlidingRadialListController extends ChangeNotifier {
 
+  final int itemCount;
+
+  final AnimationController _slideController;
+  final AnimationController _fadeController;
+
   RadialListState _state;
+
+  SlidingRadialListController({
+    this.itemCount,
+    vsync,
+
+  }) : _slideController = new AnimationController(
+        duration: const Duration(milliseconds: 1500),
+        vsync: vsync,
+      ),
+      _fadeController = new AnimationController(
+        duration: const Duration(milliseconds: 150),
+        vsync: vsync,
+      ) {
+    _slideController
+      ..addListener(() => notifyListeners())
+      ..addStatusListener((AnimationStatus status) {
+        // TODO
+      });
+
+    _fadeController
+      ..addListener(() => notifyListeners())
+      ..addStatusListener((AnimationStatus status) {
+        // TODO
+      });
+  }
 
   double getItemAngle(int index) {
     // TODO
