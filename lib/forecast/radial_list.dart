@@ -76,6 +76,7 @@ class RadialListItem extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5.0),
             child: new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 new Text(
                   listItem.title,
