@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:my_weather_app/generic_widgets/radial_position.dart';
 
 class RadialList extends StatelessWidget {
 
@@ -26,10 +27,15 @@ class RadialList extends StatelessWidget {
   }
 
   Widget _radialListItem(RadialListItemViewModel viewModel, double angle) {
+    // Move Icons to middle of screen
     return new Transform(
       transform: new Matrix4.translationValues(40.0, 334.0, 0.0),
-      child: new RadialListItem(
-        listItem: viewModel,
+      child: new RadialPosition(
+        radius: 140.0 + 75.0,
+        angle: angle,
+        child: new RadialListItem(
+          listItem: viewModel,
+        ),
       ),
     );
   }
