@@ -54,10 +54,15 @@ class SlidingRadialList extends StatelessWidget {
 
 class SlidingRadialListController extends ChangeNotifier {
 
+  final double firstItemAngle = -pi / 3;
+  final double lastItemAngle = pi / 3;
+  final double startSlidingAngle = 3 * pi / 4;
+
   final int itemCount;
 
   final AnimationController _slideController;
   final AnimationController _fadeController;
+  List<Animation<double>> _slidePositions;
 
   RadialListState _state;
 
@@ -112,10 +117,51 @@ class SlidingRadialListController extends ChangeNotifier {
             break;
         }
       });
+
+    // Starts 10% behind next item.  Total of 50%.
+    /*
+     * Interval Table
+     *
+     * 1st Icon: No Delay. Takes 50% to complete.
+     * 2nd Icon: Starts at 10%. Ends at 60%.
+     * 3rd Icon: Starts at 20%. Ends at 70%.
+     * 4th Icon: Starts at 40%. Ends at 90%.
+     * 5th Icon: Starst at 50%. Ends at 100%.
+     *
+     */
+    final delayInterval = 0.1;
+    final slideInterval = 0.5;
+    final angleDeltaPerItem = (lastItemAngle - firstItemAngle) / (itemCount - 1);
+
+    for(var i = 0; i < itemCount; ++i) {
+      final start = delayInterval * i;
+      final end = start + slideInterval;
+
+      final endSlidingAngle = firstItemAngle + (angleDeltaPerItem * i);
+
+      _slidePositions.add(
+        new Tween(
+          begin: startSlidingAngle,
+          end: endSlidingAngle,
+        ).animate(
+          new CurvedAnimation(
+            parent: _slideController,
+            curve: new Interval(start, end, curve: Curves.easeInOut),
+          )
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _slideController.dispose();
+    _fadeController.dispose();
+    super.dispose();
   }
 
   double getItemAngle(int index) {
-    // TODO
+    return _slidePositions[index].value;
   }
 
   double getItemOpacity(int index) {
