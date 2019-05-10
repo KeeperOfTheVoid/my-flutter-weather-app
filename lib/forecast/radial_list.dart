@@ -25,6 +25,12 @@ class RadialList extends StatelessWidget {
     }).toList();
   }
 
+  Widget _radialListItem(RadialListItemViewModel viewModel, double angle) {
+    return new RadialListItem(
+      listItem: viewModel,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Stack(

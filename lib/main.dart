@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_weather_app/forecast/app_bar.dart';
 import 'package:my_weather_app/forecast/forecast.dart';
+import 'package:my_weather_app/forecast/forecast_list.dart';
 import 'package:my_weather_app/forecast/week_drawer.dart';
 import 'package:my_weather_app/generic_widgets/sliding_drawer.dart';
 
@@ -76,7 +77,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     return new Scaffold(
       body: new Stack(
         children: <Widget>[
-          new Forecast(),
+          new Forecast(
+            radialList: forecastRadialList,
+          ),
           new Positioned(
             top: 0.0,
             left: 0.0,
