@@ -1,5 +1,66 @@
 import 'package:flutter/material.dart';
 
+
+class RadialListItem extends StatelessWidget {
+  final RadialListItemViewModel listItem;
+
+  RadialListItem({
+    this.listItem,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return new Transform(
+      transform: new Matrix4.translationValues(-30.0, -30.0, 0.0),
+      child: new Row(
+        children: <Widget>[
+          new Container(
+            width: 60.0,
+            height: 60.0,
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent,
+              border: new Border.all(
+                color: Colors.white,
+                width: 2.0,
+              ),
+            ),
+            child: new Padding(
+              padding: const EdgeInsets.all(7.0),
+              child: new Image(
+                image: listItem.icon,
+                color: listItem.isSelected ? const Color(0xFF6688CC) : Colors.white,
+              ),
+            ),
+          ),
+          new Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Text(
+                  listItem.title,
+                  style: new TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
+                ),
+                new Text(
+                  listItem.subtitle,
+                  style: new TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class RadialListViewModel {
   final List<RadialListItemViewModel> items;
 
