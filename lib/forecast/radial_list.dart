@@ -58,6 +58,20 @@ class RadialListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final circleDecoration = listItem.isSelected
+      ? new BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        )
+      : new BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.transparent,
+          border: new Border.all(
+            color: Colors.white,
+            width: 2.0,
+          ),
+        );
+
     return new Transform(
       transform: new Matrix4.translationValues(-30.0, -30.0, 0.0),
       child: new Row(
@@ -65,14 +79,7 @@ class RadialListItem extends StatelessWidget {
           new Container(
             width: 60.0,
             height: 60.0,
-            decoration: new BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.transparent,
-              border: new Border.all(
-                color: Colors.white,
-                width: 2.0,
-              ),
-            ),
+            decoration: circleDecoration,
             child: new Padding(
               padding: const EdgeInsets.all(7.0),
               child: new Image(
