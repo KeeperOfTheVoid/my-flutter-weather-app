@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_weather_app/forecast/background/background_with_rings.dart';
+import 'package:my_weather_app/forecast/background/rain.dart';
 import 'package:my_weather_app/forecast/radial_list.dart';
 
 class Forecast extends StatelessWidget {
@@ -38,6 +39,8 @@ class Forecast extends StatelessWidget {
           radialList: radialList,
           controller: slidingListController,
         ),
+        // TODO Figure out why Sprite Widgets isn't working
+        //new Rain(),
       ],
     );
   }
