@@ -203,7 +203,7 @@ class SlidingRadialListController extends ChangeNotifier {
 
   Future<Null> close() {
     if(_state == RadialListState.open) {
-      _slideController.forward();
+      _fadeController.forward();
       onClosedCompleter = new Completer();
       return onClosedCompleter.future;
     }
