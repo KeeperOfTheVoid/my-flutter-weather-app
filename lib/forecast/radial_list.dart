@@ -15,29 +15,30 @@ class SlidingRadialList extends StatelessWidget {
   });
 
   List<Widget> _radialListItems() {
-    final double firstItemAngle = -pi / 3;
-    final double lastItemAngle = pi / 3;
-    final double angleDiffPerItem = (lastItemAngle - firstItemAngle) /
-        (radialList.items.length - 1);
-
-    double currAngle = firstItemAngle;
-
+    int index = 0;
     return radialList.items.map((RadialListItemViewModel viewModel) {
-      final listItem = _radialListItem(viewModel, currAngle);
-      currAngle += angleDiffPerItem;
+      final listItem = _radialListItem(
+        viewModel,
+        controller.getItemAngle(index),
+        controller.getItemOpacity(index),
+      );
+      ++index;
       return listItem;
     }).toList();
   }
 
-  Widget _radialListItem(RadialListItemViewModel viewModel, double angle) {
+  Widget _radialListItem(RadialListItemViewModel viewModel, double angle, double opacity) {
     // Move Icons to middle of screen
     return new Transform(
       transform: new Matrix4.translationValues(40.0, 334.0, 0.0),
       child: new RadialPosition(
         radius: 140.0 + 75.0,
         angle: angle,
-        child: new RadialListItem(
-          listItem: viewModel,
+        child: new Opacity(
+          opacity: opacity,
+          child: new RadialListItem(
+            listItem: viewModel,
+          ),
         ),
       ),
     );

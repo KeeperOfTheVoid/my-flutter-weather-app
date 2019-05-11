@@ -49,7 +49,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
 
   OpenableController openableController;
   SlidingRadialListController slidingListController;
@@ -67,11 +67,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     )
     ..addListener(() => setState(() {}));
 
-    /*slidingListController = new SlidingRadialListController(
+    slidingListController = new SlidingRadialListController(
+      itemCount: forecastRadialList.items.length,
       vsync: this,
-      openDuration: const Duration(milliseconds: 250),
     )
-    ..open();*/
+    ..open();
   }
 
   @override
