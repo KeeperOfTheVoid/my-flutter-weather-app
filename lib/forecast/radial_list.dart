@@ -46,8 +46,14 @@ class SlidingRadialList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Stack(
-      children: _radialListItems(),
+    // Runs builder everytime animation changes
+    return new AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext build, Widget child) {
+        return new Stack(
+        children: _radialListItems(),
+        );
+      },
     );
   }
 }
@@ -65,11 +71,11 @@ class SlidingRadialListController extends ChangeNotifier {
   final AnimationController _fadeController;
   List<Animation<double>> _slidePositions;
 
-  RadialListState _state;
+  RadialListState _state = RadialListState.closed;
 
   // Used to create Futures for open & close methods
-  Completer onOpenedCompleter;
-  Completer onClosedCompleter;
+  Completer<Null> onOpenedCompleter;
+  Completer<Null> onClosedCompleter;
 
   SlidingRadialListController({
     this.itemCount,
