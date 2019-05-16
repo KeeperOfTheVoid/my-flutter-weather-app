@@ -40,7 +40,7 @@ class Forecast extends StatelessWidget {
           controller: slidingListController,
         ),
         // TODO Figure out why Sprite Widgets isn't working
-        //new Rain(),
+        new Rain(),
       ],
     );
   }
